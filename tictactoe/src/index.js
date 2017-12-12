@@ -94,7 +94,7 @@ class Game extends React.Component {
 
     // Generate a list of previous moves
     const moves = history.map((step, move) => {
-      const description = move ? 'Go to move #' + move : 'Go to game start';
+      const description = move ? 'Go to move #' + move : 'Go to start';
 
       // Text of current move button will be bold
       let btnText;
