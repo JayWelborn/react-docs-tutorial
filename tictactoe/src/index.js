@@ -18,6 +18,7 @@ class Board extends React.Component {
   renderSquare(i) {
     return (
       <Square
+        key={i}
         value={this.props.squares[i]}
         onClick={() => this.props.onClick(i)}
       />
@@ -25,23 +26,19 @@ class Board extends React.Component {
   }
 
   render() {
+
+    let board = [];
+    for (let i = 0; i < 3; i++){
+      let squares = [];
+      for (let j = 0; j < 3; j++){
+        squares.push(this.renderSquare(3 * i + j))
+      }
+      board.push(<div key={i} className="board-row">{squares}</div>)
+    }
+
     return (
       <div>
-        <div className="board-row">
-          {this.renderSquare(0)}
-          {this.renderSquare(1)}
-          {this.renderSquare(2)}
-        </div>
-        <div className="board-row">
-          {this.renderSquare(3)}
-          {this.renderSquare(4)}
-          {this.renderSquare(5)}
-        </div>
-        <div className="board-row">
-          {this.renderSquare(6)}
-          {this.renderSquare(7)}
-          {this.renderSquare(8)}
-        </div>
+        {board}
       </div>
     );
   }
@@ -98,6 +95,8 @@ class Game extends React.Component {
     // Generate a list of previous moves
     const moves = history.map((step, move) => {
       const description = move ? 'Go to move #' + move : 'Go to game start';
+
+      // Text of current move button will be bold
       let btnText;
       if (move === this.state.stepNumber){
         btnText = <strong>{description}</strong>
