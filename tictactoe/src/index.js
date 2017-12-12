@@ -28,15 +28,17 @@ class Board extends React.Component {
   handleClick(i){
     const squares = this.state.squares.slice();
 
-    if (!squares[i]){
-      // https://en.wikipedia.org/wiki/%3F:
-      squares[i] = this.state.xIsNext ? 'X' : 'O';
-      this.setState({
-        squares,
-        xIsNext: !this.state.xIsNext,
-      });
+    if (calculateWinner(squares) || squares[i]){
+      return
     }
+    // https://en.wikipedia.org/wiki/%3F:
+    squares[i] = this.state.xIsNext ? 'X' : 'O';
+    this.setState({
+      squares,
+      xIsNext: !this.state.xIsNext,
+    });
   }
+
 
   // Passes value from array 'squares' to Square
   // Passes function to handle click. See handleClick()
