@@ -50,7 +50,16 @@ class Board extends React.Component {
   }
 
   render() {
-    const status = 'Next player: ' + (this.state.xIsNext ? 'X': 'O');
+    const winner = calculateWinner(this.state.squares);
+    let status;
+
+    // Display victory message if there's a winner, otherwise
+    // Say who's next.
+    if (winner) {
+      status = 'The Winner Is: ' + winner + '!';
+    } else {
+      status = 'Next player: ' + (this.state.xIsNext ? 'X': 'O');
+    }
 
     return (
       <div>
@@ -90,6 +99,36 @@ class Game extends React.Component {
     );
   }
 }
+
+// Check for victory and declare a winner
+function calculateWinner(squares) {
+
+  console.log('Checking for Victory')
+
+  // Combinations of squares that mean victory
+  const lines = [
+    [0, 1, 2],
+    [3, 4, 5],
+    [6, 7, 8],
+    [0, 3, 6],
+    [1, 4, 7],
+    [2, 5, 8],
+    [0, 4, 8],
+    [2, 4, 6],
+  ];
+
+  // Iterate through victory arrays checking for squares
+  // value equality
+  for (let i = 0; i < lines.length; i++){
+    const[a, b, c] = lines[i];
+    if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]){
+      return squares[a];
+    }
+  }
+
+  return null;
+}
+
 
 // ========================================
 
